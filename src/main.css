@@ -1,0 +1,23 @@
+body {
+  margin: 16px;
+  color: rgba(224, 224, 224, 0.8);
+  font: 16px sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  background: #181818;
+  display: flex;
+  flex-direction: column;
+}
+
+#table {
+  margin: 16px 8px;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px 12px;
+  border: solid 1px #888888;
+}
+
+td.name {
+  width: 128px;
+}
