@@ -8,6 +8,15 @@ body {
   flex-direction: column;
 }
 
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontal-container > * {
+  margin: 8px;
+}
+
 #table {
   margin: 16px 8px;
   border-collapse: collapse;
