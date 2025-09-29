@@ -17,16 +17,16 @@ body {
   margin: 8px;
 }
 
-#table {
+#table-characters {
   margin: 16px 8px;
   border-collapse: collapse;
 }
 
-td {
+#table-characters td {
   padding: 6px 12px;
   border: solid 1px #888888;
 }
 
-td.name {
+#table-characters td.name {
   width: 128px;
 }

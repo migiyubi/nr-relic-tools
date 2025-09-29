@@ -17,7 +17,7 @@ class App {
             this.onFileOpen(files[0]);
         });
 
-        this._table = document.querySelector('#table');
+        this._tableCharacters = document.querySelector('#table-characters');
         this._exporter = new Exporter();
         this._currentData = null;
     }
@@ -43,8 +43,8 @@ class App {
     }
 
     updateTable() {
-        while (this._table.children.length > 0) {
-            this._table.removeChild(this._table.firstChild);
+        while (this._tableCharacters.children.length > 0) {
+            this._tableCharacters.removeChild(this._tableCharacters.firstChild);
         }
 
         for (const [index, playerData] of this._currentData.entries()) {
@@ -64,7 +64,7 @@ class App {
             tdExport.appendChild(buttonExport);
             tr.appendChild(tdExport);
 
-            this._table.appendChild(tr);
+            this._tableCharacters.appendChild(tr);
         }
     }
 
