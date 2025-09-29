@@ -30,3 +30,47 @@ body {
 #table-characters td.name {
   width: 128px;
 }
+
+#table-relics {
+  border-collapse: separate;
+  border-spacing: 0 2px;
+  width: 100%;
+  table-layout: fixed;
+  font: 14px sans-serif;
+}
+
+#table-relics tbody tr {
+  height: 42px;
+}
+
+#table-relics tbody td.color {
+  width: 8px;
+}
+
+#table-relics tbody td.color.red {
+  background-color: #ff4b00;
+}
+
+#table-relics tbody td.color.blue {
+  background-color: #005aff;
+}
+
+#table-relics tbody td.color.yellow {
+  background-color: #f6aa00;
+}
+
+#table-relics tbody td.color.green {
+  background-color: #03af7a;
+}
+
+#table-relics tbody div {
+  padding: 0 10px;
+}
+
+#table-relics tbody .cursed-effect {
+  color: #00aacc;
+}
+
+#table-relics tbody tr:nth-child(even) {
+  background-color: #222222;
+}

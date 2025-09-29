@@ -3,6 +3,8 @@ import 'main.css';
 import Decrypter from 'Decrypter.js';
 import Parser from 'Parser.js';
 import Exporter from 'Exporter.js';
+import { Relics, Effects } from 'RelicMaster.js';
+import { values } from 'i18n.js';
 
 class App {
     constructor() {
@@ -18,8 +20,11 @@ class App {
         });
 
         this._tableCharacters = document.querySelector('#table-characters');
+        this._tableRelics = document.querySelector('#table-relics');
         this._exporter = new Exporter();
         this._currentData = null;
+
+        this._locale = 'ja';
     }
 
     async onFileOpen(file) {
@@ -55,6 +60,15 @@ class App {
             tdName.textContent = playerData.name;
             tr.appendChild(tdName);
 
+            const tdBrowse = document.createElement('td');
+            const buttonBrowse = document.createElement('button');
+            buttonBrowse.textContent = 'Browse';
+            buttonBrowse.addEventListener('click', (e) => {
+                this.browse(index);
+            });
+            tdBrowse.appendChild(buttonBrowse);
+            tr.appendChild(tdBrowse);
+
             const tdExport = document.createElement('td');
             const buttonExport = document.createElement('button');
             buttonExport.textContent = 'Export CSV';
@@ -79,6 +93,60 @@ class App {
         a.download = 'relics.csv';
         a.click();
         document.body.removeChild(a);
+    }
+
+    browse(index) {
+        while (this._tableRelics.children.length > 0) {
+            this._tableRelics.removeChild(this._tableRelics.firstChild);
+        }
+
+        const effectCount = 3;
+        const tbody = document.createElement('tbody');
+
+        const res = values[this._locale];
+
+        for (const [i, relic] of this._currentData[index].relics.entries()) {
+            const relicMaster = Relics[relic.itemId];
+
+            const tr = document.createElement('tr');
+
+            const tdColor = document.createElement('td');
+            tdColor.classList.add('color');
+            tdColor.classList.add(relicMaster.color);
+            tr.appendChild(tdColor);
+
+            for (let i = 0; i < effectCount; i++) {
+                const td = document.createElement('td');
+
+                const divEffect = document.createElement('div');
+                const divCursedEffect = document.createElement('div');
+                divEffect.classList.add('effect');
+                divCursedEffect.classList.add('cursed-effect');
+
+                const effectId = relic.effectIds[i];
+                const cursedEffectId = relic.cursedEffectIds[i];
+
+                if (effectId > 0) {
+                    const effectMaster = Effects[effectId];
+                    const effectName = res[effectMaster.name] !== undefined ? res[effectMaster.name] : effectMaster.name;
+                    divEffect.textContent = effectName;
+                }
+                td.appendChild(divEffect);
+
+                if (cursedEffectId > 0) {
+                    const effectMaster = Effects[cursedEffectId];
+                    const effectName = res[effectMaster.name] !== undefined ? res[effectMaster.name] : effectMaster.name;
+                    divCursedEffect.textContent = effectName;
+                }
+                td.appendChild(divCursedEffect);
+
+                tr.appendChild(td);
+            }
+
+            tbody.appendChild(tr);
+        }
+
+        this._tableRelics.appendChild(tbody);
     }
 }
 
