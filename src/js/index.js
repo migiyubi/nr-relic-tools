@@ -44,10 +44,10 @@ class App {
         const parser = new Parser(entries);
         this._currentData = parser.parse();
 
-        this.updateTable();
+        this.updateCharactersTable();
     }
 
-    updateTable() {
+    updateCharactersTable() {
         while (this._tableCharacters.children.length > 0) {
             this._tableCharacters.removeChild(this._tableCharacters.firstChild);
         }
@@ -83,7 +83,7 @@ class App {
     }
 
     exportCsv(index) {
-        const csv = this._exporter.toCsv(this._currentData[index], 'ja');
+        const csv = this._exporter.toCsv(this._currentData[index], this._locale);
 
         const blob = new Blob([csv], { type: 'text/plain' });
 

@@ -4,8 +4,8 @@ import { values } from 'i18n.js';
 export default class Exporter {
     constructor() {}
 
-    toCsv(data, lang='en') {
-        const res = values[lang];
+    toCsv(data, locale='en') {
+        const res = values[locale];
         let csv = 'id,color,effect1,effect2,effect3,cursedEffect1,cursedEffect2,cursedEffect3\n';
 
         for (const [index, relic] of data.relics.entries()) {
