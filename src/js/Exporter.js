@@ -6,7 +6,7 @@ export default class Exporter {
 
     toCsv(data, locale='en') {
         const res = values[locale];
-        let csv = 'id,color,effect1,effect2,effect3,cursedEffect1,cursedEffect2,cursedEffect3\n';
+        let csv = 'id,color,isDeepRelic,effect1,effect2,effect3,cursedEffect1,cursedEffect2,cursedEffect3\n';
 
         for (const [index, relic] of data.relics.entries()) {
             let line = `${index+1}`;
@@ -19,6 +19,9 @@ export default class Exporter {
 
             const color = res[relicMaster.color] !== undefined ? res[relicMaster.color] : relicMaster.color;
             line += `,${color}`;
+
+            const deepRelicFlag = relicMaster.type == 'deepRelic' ? 1 : 0;
+            line += `,${deepRelicFlag}`;
 
             for (const id of relic.effectIds) {
                 if (id < 0) {
