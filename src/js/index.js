@@ -110,6 +110,11 @@ class App {
 
             const tr = document.createElement('tr');
 
+            const tdType = document.createElement('td');
+            tdType.classList.add('type');
+            tdType.classList.add(relicMaster.type);
+            tr.appendChild(tdType);
+
             const tdColor = document.createElement('td');
             tdColor.classList.add('color');
             tdColor.classList.add(relicMaster.color);

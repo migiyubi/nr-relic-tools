@@ -43,6 +43,15 @@ body {
   height: 42px;
 }
 
+#table-relics tbody td.type {
+  width: 8px;
+  background-color: #181818;
+}
+
+#table-relics tbody td.type.deepRelic {
+  background-color: #181888;
+}
+
 #table-relics tbody td.color {
   width: 8px;
 }
