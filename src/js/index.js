@@ -19,11 +19,17 @@ class App {
             this.onFileOpen(files[0]);
         });
         const selectLocale = document.querySelector('#select-locale');
-        selectLocale.selectedIndex = 1;
         selectLocale.addEventListener('change', (e) => {
             this._locale = e.target.children[e.target.selectedIndex].value;
             this.browse();
         });
+        const browserLocale = navigator.language.includes('en') ? 'en' : navigator.language;
+        for (const [index, locale] of Object.keys(values).entries()) {
+            if (locale === browserLocale) {
+                selectLocale.selectedIndex = index;
+                break;
+            }
+        }
 
         this._tableCharacters = document.querySelector('#table-characters');
         this._tableRelics = document.querySelector('#table-relics');
