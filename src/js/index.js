@@ -18,13 +18,20 @@ class App {
 
             this.onFileOpen(files[0]);
         });
+        const selectLocale = document.querySelector('#select-locale');
+        selectLocale.selectedIndex = 1;
+        selectLocale.addEventListener('change', (e) => {
+            this._locale = e.target.children[e.target.selectedIndex].value;
+            this.browse();
+        });
 
         this._tableCharacters = document.querySelector('#table-characters');
         this._tableRelics = document.querySelector('#table-relics');
         this._exporter = new Exporter();
-        this._currentData = null;
 
-        this._locale = 'ja';
+        this._currentData = [];
+        this._currentCharacterIndex = -1;
+        this._locale = selectLocale.children[selectLocale.selectedIndex].value;
     }
 
     async onFileOpen(file) {
@@ -64,7 +71,8 @@ class App {
             const buttonBrowse = document.createElement('button');
             buttonBrowse.textContent = 'Browse';
             buttonBrowse.addEventListener('click', (e) => {
-                this.browse(index);
+                this._currentCharacterIndex = index;
+                this.browse();
             });
             tdBrowse.appendChild(buttonBrowse);
             tr.appendChild(tdBrowse);
@@ -83,6 +91,10 @@ class App {
     }
 
     exportCsv(index) {
+        if (index < 0 || index >= this._currentData.length) {
+            return;
+        }
+
         const csv = this._exporter.toCsv(this._currentData[index], this._locale);
 
         const blob = new Blob([csv], { type: 'text/plain' });
@@ -95,7 +107,13 @@ class App {
         document.body.removeChild(a);
     }
 
-    browse(index) {
+    browse() {
+        const index = this._currentCharacterIndex;
+
+        if (index < 0 || index >= this._currentData.length) {
+            return;
+        }
+
         while (this._tableRelics.children.length > 0) {
             this._tableRelics.removeChild(this._tableRelics.firstChild);
         }

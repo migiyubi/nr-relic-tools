@@ -7,7 +7,14 @@
   <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
 <body>
-  <div class="horizontal-container"><div id="label-open-save-file">Open Save File (.sl2)</div><div><input id="input-save" type="file" accept=".sl2"/></div></div>
+  <div class="horizontal-container">
+    <div id="label-open-save-file">Open Save File (.sl2)</div>
+    <div><input id="input-save" type="file" accept=".sl2"/></div>
+    <div class="horizontal-container"><div>Language</div><div><select id="select-locale" name="locale">
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+    </select></div></div>
+  </div>
   <div><table id="table-characters"></table></div>
   <div><table id="table-relics"></table></div>
 </body>
