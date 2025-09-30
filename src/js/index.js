@@ -123,7 +123,7 @@ class App {
 
         const res = values[this._locale];
 
-        for (const [i, relic] of this._currentData[index].relics.entries()) {
+        for (const relic of this._currentData[index].relics) {
             const relicMaster = Relics[relic.itemId];
 
             const tr = document.createElement('tr');
