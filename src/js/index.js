@@ -94,6 +94,9 @@ class App {
 
             this._tableCharacters.appendChild(tr);
         }
+
+        this._currentCharacterIndex = -1;
+        this.browse();
     }
 
     exportCsv(index) {
@@ -116,12 +119,12 @@ class App {
     browse() {
         const index = this._currentCharacterIndex;
 
-        if (index < 0 || index >= this._currentData.length) {
-            return;
-        }
-
         while (this._tableRelics.children.length > 0) {
             this._tableRelics.removeChild(this._tableRelics.firstChild);
+        }
+
+        if (index < 0 || index >= this._currentData.length) {
+            return;
         }
 
         const effectCount = 3;
