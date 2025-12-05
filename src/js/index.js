@@ -116,6 +116,26 @@ class App {
         document.body.removeChild(a);
     }
 
+    retrieveEffectName(res, effectId) {
+        const effectMaster = Effects[effectId];
+
+        if (effectMaster === undefined) {
+            console.warn(`Unknown effect. : effectId=${effectId}`);
+            return '<unknown effect>';
+        }
+        else if (effectMaster.name === undefined) {
+            console.warn(`Unknown effect name. : effectId=${effectId}`);
+            return '<unknown effect>';
+        }
+        else if (res[effectMaster.name] === undefined) {
+            console.warn(`No translation available for the effect. : effectId=${effectId}, effectName=${effectMaster.name}`);
+            return effectMaster.name;
+        }
+        else {
+            return res[effectMaster.name];
+        }
+    }
+
     browse() {
         const index = this._currentCharacterIndex;
 
@@ -139,8 +159,13 @@ class App {
 
             const tdColor = document.createElement('td');
             tdColor.classList.add('color');
-            tdColor.classList.add(relicMaster.color);
-            tdColor.classList.add(relicMaster.type);
+            if (relicMaster === undefined) {
+                console.warn(`Unknown relic. : itemId=${relic.itemId}`);
+            }
+            else {
+                tdColor.classList.add(relicMaster.color);
+                tdColor.classList.add(relicMaster.type);
+            }
             tr.appendChild(tdColor);
 
             for (let i = 0; i < effectCount; i++) {
@@ -155,16 +180,15 @@ class App {
                 const cursedEffectId = relic.cursedEffectIds[i];
 
                 if (effectId > 0) {
-                    const effectMaster = Effects[effectId];
-                    const effectName = res[effectMaster.name] !== undefined ? res[effectMaster.name] : effectMaster.name;
-                    divEffect.textContent = effectName;
+                    divEffect.textContent = this.retrieveEffectName(res, effectId);
+                }
+                else {
+                    divEffect.textContent = '-';
                 }
                 td.appendChild(divEffect);
 
                 if (cursedEffectId > 0) {
-                    const effectMaster = Effects[cursedEffectId];
-                    const effectName = res[effectMaster.name] !== undefined ? res[effectMaster.name] : effectMaster.name;
-                    divCursedEffect.textContent = effectName;
+                    divCursedEffect.textContent = this.retrieveEffectName(res, cursedEffectId);
                 }
                 td.appendChild(divCursedEffect);
 
